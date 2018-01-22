@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<context:annotation-config></context:annotation-config>
+
+	<bean id="triangle" class="com.demo.Triangle">
+		<property name="type" value="Equilateral"></property>
+	</bean>
+
+	<bean id="childBean" class="com.demo.Child" scope="request">
+		<property name="id" value="3453454"></property>
+	</bean>
+
+	<bean id="parentBean" class="com.demo.Parent" scope="prototype">
+		<property name="name" value="Mintu"></property>
+		<!-- <property name="child" ref="childBean"></property> -->
+		<!-- <lookup-method name="getChild" bean="childBean" /> -->
+	</bean>
+
+	<bean id="triangle2" class="com.demo.Triangle" scope="prototype" />
+
+	<bean id="hijackBeforeMethodBean" class="com.demo.HijackBeforeMethod" />
+	<bean id="hijackAfterMethodBean" class="com.demo.HijackAfterMethod" />
+	<bean id="hijackThrowMethodBean" class="com.demo.HijackThrowException" />
+	<bean id="hijackAroundMethodBean" class="com.demo.HijackAroundMethod" />
+
+	<!-- <bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean"> 
+		<property name="target" ref="triangle" /> <property name="interceptorNames"> 
+		<list> <value>hijackBeforeMethodBean</value> <value>hijackAfterMethodBean</value> 
+		<value>hijackThrowMethodBean</value> <value>hijackAroundMethodBean</value> 
+		</list> </property> </bean> -->
+
+	<!-- <aop:aspectj-autoproxy /> -->
+
+	<!-- Aspect -->
+	<!-- <bean id="beforeAspect" class="com.demo.annotationaop.HackingBefore" 
+		/> -->
+
+
+	<bean id="helloWorld" class="com.demo.eventhandling.HelloWorld">
+		<property name="message" value="Hello World!" />
+	</bean>
+
+	<bean id="cStartEventHandler" class="com.demo.eventhandling.CStartEventHandler" />
+	<bean id="cStopEventHandler" class="com.demo.eventhandling.CStopEventHandler" />
+	<bean id="closeEventHandler" class="com.demo.eventhandling.CloseEventHandler" />
+	<bean id="refreshEventHandler" class="com.demo.eventhandling.RefreshEventHandler" />
+
+
+	<!-- JdbcTemplate connection -->
+
+	<!-- Initialization for data source -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="system" />
+		<property name="password" value="system" />
+	</bean>
+
+	<!-- Definition for studentJDBCTemplate bean -->
+	<bean id="personDAOImplJDBCTemplate" class="com.demo.jdbctemplate.dao.PersonDAOImplJDBCTemplate">
+		<!-- <property name="dataSource" ref="dataSource" /> will call setter of 
+			dataSource -->
+		<constructor-arg ref="dataSource" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="NestedTransaction" class="com.demo.jdbctemplate.dao.NestedTransaction" />
+
+
+	<!-- This tells Spring to activate annotation-driven transactions -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+
+
+	<!-- Enable AspectJ style of Spring AOP -->
+	<aop:aspectj-autoproxy />
+
+<!-- Configure Employee Bean and initialize it -->
+<bean name="employee" class="com.demo.annotationaop.Employee">
+	<property name="name" value="Dummy Name"></property>
+</bean>
+
+<!-- Configure EmployeeService bean -->
+<bean name="employeeService" class="com.demo.annotationaop.EmployeeService">
+	<property name="employee" ref="employee"></property>
+</bean>
+
+<!-- Configure Aspect Beans, without this Aspects advices wont execute -->
+<!-- <bean name="employeeAspect" class="com.demo.annotationaop.EmployeeAspect" /> -->
+<bean name="employeeAspectPointcut" class="com.demo.annotationaop.EmployeeAspectPointcut" />
+<!-- <bean name="employeeAspectJoinPoint" class="com.demo.annotationaop.EmployeeAspectJoinPoint" /> -->
+<!-- <bean name="employeeAfterAspect" class="com.demo.annotationaop.EmployeeAfterAspect" /> -->
+<!-- <bean name="employeeAroundAspect" class="com.demo.annotationaop.EmployeeAroundAspect" /> -->
+<!-- <bean name="employeeAnnotationAspect" class="com.demo.annotationaop.EmployeeAnnotationAspect" /> -->
+
+
+
+</beans>
