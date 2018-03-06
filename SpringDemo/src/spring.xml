@@ -16,14 +16,14 @@
 		<property name="type" value="Equilateral"></property>
 	</bean>
 
-	<bean id="childBean" class="com.demo.Child" scope="request">
+	<bean id="childBean" class="com.demo.Child" scope="prototype">
 		<property name="id" value="3453454"></property>
 	</bean>
 
-	<bean id="parentBean" class="com.demo.Parent" scope="prototype">
+	<bean id="parentBean" class="com.demo.Parent" scope="singleton">
 		<property name="name" value="Mintu"></property>
-		<!-- <property name="child" ref="childBean"></property> -->
-		<!-- <lookup-method name="getChild" bean="childBean" /> -->
+		  <property name="child" ref="childBean"></property>  
+		  <lookup-method name="getChild" bean="childBean" />  
 	</bean>
 
 	<bean id="triangle2" class="com.demo.Triangle" scope="prototype" />
