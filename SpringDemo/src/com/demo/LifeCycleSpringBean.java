@@ -10,7 +10,7 @@ public class LifeCycleSpringBean implements InitializingBean, DisposableBean{
 	 System.out.println("InitializingBean - afterPropertiesSet() ..After properities are set");
 		
 	}
-
+  //DisposableBean
 	@Override
 	public void destroy() throws Exception {
 		 System.out.println("DisposableBean - destroy() ..Before IOC container is destroyed");
