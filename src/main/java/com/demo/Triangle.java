@@ -1,7 +1,6 @@
 package com.demo;
 
 import org.springframework.beans.factory.BeanNameAware;
-import org.springframework.stereotype.Component;
 
 public class Triangle implements BeanNameAware {
 	private String type;

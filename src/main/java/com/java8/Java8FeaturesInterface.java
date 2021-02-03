@@ -1,4 +1,4 @@
-package com.java8;
+package main.java.com.java8;
 
 public interface Java8FeaturesInterface {
 

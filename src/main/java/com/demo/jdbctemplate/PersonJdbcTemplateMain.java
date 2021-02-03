@@ -2,10 +2,9 @@ package com.demo.jdbctemplate;
 
 import java.util.List;
 
+import com.demo.jdbctemplate.dao.PersonDAOImplJDBCTemplate;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.demo.jdbctemplate.dao.PersonDAOImplJDBCTemplate;
 
 /*
  * SETUP ORACLE DB PRIOR TO CODING

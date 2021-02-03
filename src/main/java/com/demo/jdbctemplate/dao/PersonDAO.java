@@ -2,8 +2,6 @@ package com.demo.jdbctemplate.dao;
 
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import com.demo.jdbctemplate.Person;
 
 public interface PersonDAO {

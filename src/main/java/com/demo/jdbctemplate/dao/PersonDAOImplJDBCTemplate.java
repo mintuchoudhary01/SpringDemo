@@ -4,14 +4,13 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import com.demo.jdbctemplate.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import com.demo.jdbctemplate.Person;
 import com.demo.jdbctemplate.PersonMapper;
 
 @Component
