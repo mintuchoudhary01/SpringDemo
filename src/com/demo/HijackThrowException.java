@@ -1,0 +1,9 @@
+package com.demo;
+
+import org.springframework.aop.ThrowsAdvice;
+
+public class HijackThrowException implements ThrowsAdvice {
+	public void afterThrowing(IllegalArgumentException e) throws Throwable {
+		System.out.println("\nHijackThrowException : Throw exception hijacked!");
+	}
+}
